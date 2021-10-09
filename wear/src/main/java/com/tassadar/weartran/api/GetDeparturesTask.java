@@ -23,7 +23,7 @@ public abstract class GetDeparturesTask extends AsyncTask<Object, List<Departure
     public static final int API_IDOS = 0;
     public static final int API_SEZNAM = 1;
 
-    public static final int API_DEFAULT = API_SEZNAM;
+    public static final int API_DEFAULT = API_IDOS;
 
     public static GetDeparturesTask create(int api, OnCompleteListener listener) {
         switch(api) {

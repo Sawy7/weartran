@@ -23,7 +23,7 @@ import java.util.List;
 public class IdosApi {
     private static final String TAG = "Weartran:IdosApi";
 
-    private static final String NAMESPACE = "http://ttws.chaps.cz/TT";
+    private static final String NAMESPACE = "http://main.crws.cz/API.svc/ODIS/connections";
     private static final String URL = "http://ttws.timetable.cz/TT.asmx";
 
     private static final int FLAG_HAS_DELAY = 0x200000;
@@ -37,6 +37,7 @@ public class IdosApi {
     public static abstract class Credentials {
         public abstract String getLogin();
         public abstract String getPassword();
+        public abstract String getUserId();
     }
 
     public IdosApi(String oldSessionId, Credentials credentials) {
@@ -51,14 +52,15 @@ public class IdosApi {
         envelope.dotNet = true; // lol
         envelope.implicitTypes = true;
         envelope.setOutputSoapObject(request);
-        m_transport.call(NAMESPACE + "/" + request.getName(), envelope);
+        m_transport.call(NAMESPACE, envelope);
         return envelope.bodyIn;
     }
 
     public boolean login() {
         SoapObject request = new SoapObject(NAMESPACE, "Login");
-        request.addProperty("sUserName", m_credentials.getLogin());
-        request.addProperty("sPassword", m_credentials.getPassword());
+        // request.addProperty("sUserName", m_credentials.getLogin());
+        // request.addProperty("sPassword", m_credentials.getPassword());
+        request.addProperty("userId", m_credentials.getUserId());
 
         try {
             Object res = callMethod(request);

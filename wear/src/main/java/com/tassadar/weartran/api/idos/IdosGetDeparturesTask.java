@@ -30,7 +30,7 @@ public class IdosGetDeparturesTask extends GetDeparturesTask implements IdosApi.
         String savedSessionId = pref.getString("IdosApiSession", null);
 
         // See comment about credentials in IdosApi.java
-        IdosApi api = new IdosApi(savedSessionId, new IdosApiCredentials());
+        IdosApi api = new IdosApi(savedSessionId, new IdosApiCredentialsEmpty());
 
         long start = System.currentTimeMillis();
         if(savedSessionId == null && !api.login())
